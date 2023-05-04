@@ -1,0 +1,105 @@
+למסד הנתונים שלנו קראנו db_ekrut:
+הוא כולל בתוכו את הטבלאות הבאות:
+1.azrielimallproducts- מייצג מכונה בקניון עזריאלי
+2.batgalimproducts- מייצג מכונה בבת גלים
+3.carmelproducts- מייצג מכונה בכרמל
+4.habimaproducts-מייצג מכונה בבימה
+5.ortbraudeproducts-מייצג מכונה בבראודה
+6.rabinproducts-מייצג מכונה ברבין
+7.warehouseproducts-מייצג מחסן ראשי
+בכל הטבלאות האלה - יש מידע על המוצרים הנמכרים (העמודות של הטבלאות) מידכ זה כולל:
+-productID- הקוד של המוצר והוא גם ה PRAIMERY KEY
+-productName- השם של המוצר
+-price- המחיר של המוצר
+-stockQuantity- הכמות של המוצר במלאי במכונה (במחסן היא אינסופית מסומנת ב - 'infinity')
+-imgSrc- הנתיב של התמונה של המוצר (VARCHAR)
+* כל העמודות הן מסוג VARCHAR
+
+8.users- שומר בתוכו את כל המשתמשים במערכת (גם לקוחות וגם עובדים)
+שומר בתוכו את המידע הבא:
+-userID- הקוד של המשתמש במערכת והוא גם ה PRAIMERY KEY
+-id-ת"ז של המשתמש
+-firstName- שם פרטי של המשתמש
+-lastName-שם משפחה של המשתמש
+-userName- שם משתמש במערכת של המתשמש
+-password-הסיסמא של המתשמש
+-role- התפקיד של המשתמש במערכת(בין אם הוא לקוח או עובד) - ENUM
+ENUM('User', 'Customer', 'ClubMember', 'CEO', 'RegionManager', 'CustomerServiceWorker', 'MarketingWorker', 'OperationsWorker', 'Deliver')
+-email- האימייל של המשתמש
+-phoneNumber-מספר פאלפון של המשתמש
+-isLoggedIn-האם המשתמש מחובר למערכת כרגע מסוג TINYINT(1)כלומר יהיה רק 0 - לא מחובר 1- מחובר
+-region- האיזור אליו המשתמש משוייך
+-creditCardNum- מספר כרטיס אשראי של לקוח (רלוונטי רק ללקוחות ומנויים לשאר המשתמשים נשמר NULL)
+למעט role ו isLoggedIn שאר המשתנים הם VARCHAR
+
+9.userstosignup- טבלה בה נשמרים משתמשים שרוצים להיות לקוחות במערכת
+		ההרשמה שלהם מותנה באישור מנהל לכן הם צריכים להישמר בטבלה
+		הטבלה מיובאת מקובץ חיצוני. כוללת את העמודות הבאות:
+-id- ת"ז של הלקוח שתשמר ב id בטבלה של ה users הוא ה PRAIMERY KEY בטבלה זו
+-firstName-שם פרטי של הלקוח
+-lastName-שם משפחה של הלקוח
+-email-האימייל של הלקוח
+-phone-מספר הפאלפון של הלקוח
+-creditCard-מספר כרטיס האשראי של הלקוח
+-region-האיזור אליו הלקוח משוייך
+כל המשתנים הם מסוג VARCHAR וכולם מקושרים בהתאמה לעמודות הקיימות בטבלה users 
+
+10.newclubmembers-טבלה שבה אם מצטרף מנוי חדש הוא מסומך כך על מנת לקבל את המבצע שלו כמנוי חדש
+		מכיל את העמודות הבאות:
+-userID- הקוד של המנוי במערכת הוא PRAIMERY KEY בטבלה זו נלקח מ userID ב users מסוג VARCHAR
+-isNew- מסוג TINYINT(1)מסמן 1 אם המנוי חדש 0 אם לא
+
+11.vendingmachines- טבלה שמחזיקה מידע על כל המכונות הקיימות במערכת, מידע זה כולל:
+-location- השם של המכונה, או המיקום המדוייק שלה באיזור ה- PRAIMERY KEY בטבלה זו
+-region- האיזור שבה נמצא המכונה הוא מקושר לאיזור שנמצא בטבלה של ה users 
+-thresholdLevel- רמת סף יחידה המוגדרת לכל מכונה, כשמוצר כל שהוא מגיע למספר זה צריך לחדש את מלאי המוצרים במכונה
+-restockStatus-מצב המלאי במכונה: מסוג ENUM('LowStock', 'WaitToRestock', 'Done')
+כל המשתנים בעמודות אלו הן מסוג VARCHAR חוץ מ restockStatus שהוא ENUM
+
+12.workermessages-טבלה בה משתמשים לשליחת הודעות מערכת לעובדים ( RegionManagerוOperations Worker)
+		 כולל את העמודות הבאות
+-id- מסוג INT הוא מסמן את מספר ההודעה. הוא ה- PRAIMERY KEY בטבלה זו
+-workerID- ה-userID של העובד המשתמש במערכת נלקח מהטבלה users מסוג VARCHAR
+-message-תוכן ההודעה שנשלחה לעובד מסוג VARCHAR
+-msgStatus- סטטוס ההודעה - ENUM('notRead', 'read')
+
+13.orders- טבלה שמייצגת את כל ההזמנות במערכת, היא מכילה את העמודות הבאות:
+orderNum-מספר הזמנה הוא ה- PRAIMERY KEY בטבלה זו
+orderDate-תאריך בו ההזמנה בוצעה
+status-סטטוס ההזמנה - האם רק הוכנסה או נלקחה(אם איסןף עצמי)
+customerID-מספר לקוח, נלקח מטבלה users עמודה userID
+machineLocation-השם של המקום שבו נמצאת המכונה, נלקח מvending machine מעמודה location .
+totPrice-מחיר כולל של כל ההזמנה
+type-סוג הזמנה, משלוח, איסוף עצמי או הזמנה מקומית
+ProductsIDs-קוד המוצרים שהוזמנו, נלקח מהטבלאות azrielimallproducts,rabinproducts וכו' - תלוי מאיפה הלקוח הזמין
+productsPrice-המחיר של כל אחד מהמוצרים, לקח מהטבלה azrielimallproducts,rabinproducts וכו'
+productsQuantity-כמות המוצרים שנקנו
+QuantityPerProduct-כמות של כל מוצר שנקנה
+paymentType-צורת תשלום NOW או DELAY
+
+כל העמודות מסוג VARCHAR
+
+14.orderstodelivery-טבלה שמייצגת הזמנות שמיועדות למשלוח
+והיא מכילה את העמודות הבאות:
+
+orderId-מייצג את מספר ההזמנה, נלקח מטבלת orders הוא ה PRAIMERY KEY בטבלה זו
+address-הכתובת שאליה המשלוח מיועד
+date-התאריך שבה נוצרה ההזמנה מקושר לתאריך בטבלה orders
+accept-האם הלקוח קיבל את ההזמנה ENUM('notAccept', 'accept')
+done-האם העובד משלוחים סיים לעבוד עליה ENUM('notDone', 'Done')
+
+address, date, orderId הם מסוג VARCHAR
+
+15.promotions-טבלה שמייצגת מבצעים 
+promotionsId-קוד המבצע הוא ה PRAIMERY KEY בטבלה זו מסוג VARCHAR 
+discountAmount-מסמל את גודל המבצע באחוזים ENUM('10', '15', '50')
+activate-האם המבצע הזה פעיל או שלא פעיל ENUM('activate', 'notActivate')
+region-איזור שבו המצבע תקף מקושר לעמודה באותו שם  ENUM('TelAviv', 'Karmiel', 'Haifa', 'NULL')
+
+16.regionmanager-טבלה שמייצגת מנהלי אזורים
+userID-נלקח מטבלה  user מהעמודה userID. הוא הקוד של המנהל בערכת
+region-האיזור שבו מנהל האיזור עובד. מקושר ל user לעמודה region
+
+userID - המפתח הראשי של הטבלה
+כל הטיפוסים מסוג VARCHAR
+
