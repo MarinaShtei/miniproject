@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DeliveryWorkerFrameController">
+   <children>
+      <Label fx:id="welcomeWorkerLbl" layoutX="94.0" layoutY="21.0" prefHeight="25.0" prefWidth="495.0" text="Welcome" textFill="#e10000">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font></Label>
+      <Button fx:id="btnExit" layoutX="65.0" layoutY="391.0" mnemonicParsing="false" onAction="#exit" prefHeight="35.0" prefWidth="70.0" text="Back" />
+      <Label layoutX="46.0" layoutY="62.0" prefHeight="36.0" prefWidth="701.0" text="                                   List of orders to Deliver:" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <TableView fx:id="tblViewDelivery" layoutX="65.0" layoutY="110.0" prefHeight="258.0" prefWidth="701.0">
+        <columns>
+          <TableColumn fx:id="orderIdCol" prefWidth="81.0" text="Order Id" />
+          <TableColumn fx:id="addrCol" prefWidth="158.0" text="Address" />
+            <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="84.0" text="Date" />
+            <TableColumn fx:id="deliveryRecievedDeliveryCol" minWidth="0.0" prefWidth="187.0" text="Deliver Recived delivery " />
+            <TableColumn fx:id="CustomerRecivedOrderCol" prefWidth="190.0" text="Customer Recived Order" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
