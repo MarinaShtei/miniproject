@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OnlineOrderFrameController">
+   <children>
+      <Label fx:id="lblDeliveryAddr" layoutX="398.0" layoutY="196.0" text="Delivery Address:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button fx:id="btnExit" layoutX="133.0" layoutY="386.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="91.0" text="Exit" textFill="#e80404">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Button fx:id="btnContinue" layoutX="583.0" layoutY="386.0" mnemonicParsing="false" onAction="#continueToOrder" prefHeight="40.0" prefWidth="91.0" text="Continue">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imgIcone" fitHeight="125.0" fitWidth="162.0" layoutX="609.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="txtFldStreet" layoutX="509.0" layoutY="283.0" />
+      <Label fx:id="lblCity" layoutX="436.0" layoutY="237.0" prefHeight="17.0" prefWidth="34.0" text="City:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblStreet" layoutX="436.0" layoutY="287.0" text="Street:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ComboBox fx:id="cmbBoxVendingMachine" layoutX="527.0" layoutY="150.0" prefWidth="150.0" />
+      <Label fx:id="lblMachine" layoutX="398.0" layoutY="154.0" text="Choose Machine:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ComboBox fx:id="cmbCity" layoutX="508.0" layoutY="233.0" prefWidth="150.0" />
+      <RadioButton fx:id="rduPickup" layoutX="146.0" layoutY="148.0" mnemonicParsing="false" onAction="#SelectVendingMachine" prefHeight="31.0" prefWidth="208.0" text="New pickup Order">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="rduDelivery" layoutX="146.0" layoutY="190.0" mnemonicParsing="false" onAction="#SetDeliveryAddress" prefHeight="27.0" prefWidth="215.0" text="New Delivery Order">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></RadioButton>
+      <Label fx:id="lblWelcome" layoutX="110.0" layoutY="18.0" text="Welcome" textFill="#e10000">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
